@@ -1,0 +1,18 @@
+  POST https://lmpr5dn1zd.execute-api.us-east-1.amazonaws.com/dev/v1/kitten
+
+  {
+    "name": "fluffykins",
+    "age": 4
+  }
+
+  ###
+  GET https://lmpr5dn1zd.execute-api.us-east-1.amazonaws.com/dev/v1/kitten
+
+  ###
+  GET https://lmpr5dn1zd.execute-api.us-east-1.amazonaws.com/dev/v1/kitten/{name}
+
+  ###
+  PUT https://lmpr5dn1zd.execute-api.us-east-1.amazonaws.com/dev/v1/kitten/{name}
+
+  ###
+  DELETE https://lmpr5dn1zd.execute-api.us-east-1.amazonaws.com/dev/v1/kitten/{name}

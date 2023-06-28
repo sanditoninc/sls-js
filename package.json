@@ -1,0 +1,14 @@
+{
+  "name": "sls-demo",
+  "version": "1.0.0",
+  "description": "sls demo stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MT",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1406.0"
+  }
+}

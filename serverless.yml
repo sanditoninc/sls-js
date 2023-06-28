@@ -1,0 +1,73 @@
+service: sls-demo
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: 
+        - dynamodb:PutItem
+        - dynamodb:Scan*
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-kittens-${opt:stage}
+
+  environment:
+    DYNAMODB_KITTEN_TABLE: ${self:service}-kittens-${opt:stage}
+
+# plugins:
+#   - serverless-pseudo-parameters
+functions:
+  create:
+    handler: index.create
+    events:
+      - http:
+          path: /v1/kitten
+          method: post
+  list:
+    handler: index.list
+    events:
+      - http:
+          path: /v1/kitten
+          method: get
+  get:
+    handler: index.get
+    events:
+      - http:
+          path: /v1/kitten/{name}
+          method: get
+  update:
+    handler: index.update
+    events:
+      - http:
+          path: /v1/kitten/{name}
+          method: put
+  delete:
+    handler: index.delete
+    events:
+      - http:
+          path: /v1/kitten/{name}
+          method: delete
+  # api:
+  #   handler: index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /
+  #         method: get
+
+resources:
+  Resources:
+    kittenTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        TableName: ${self:service}-kittens-${opt:stage}
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
